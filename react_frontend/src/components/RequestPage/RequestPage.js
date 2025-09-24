@@ -69,15 +69,23 @@ function RequestPage() {
         <div className="logo">Hire A Helper</div>
         <nav className="sidebar-nav">
           <ul>
-            <li className={activeNav === 'feed' ? 'active' : ''} onClick={() => { setActiveNav('feed'); navigate('/feed'); }}>Feed</li>
-            <li className={activeNav === 'myTasks' ? 'active' : ''} onClick={() => { setActiveNav('myTasks'); navigate('/my-tasks'); }}>My Tasks</li>
-            <li className={activeNav === 'requests' ? 'active' : ''} onClick={() => { setActiveNav('requests'); navigate('/request'); }}>Requests</li>
-            <li className={activeNav === 'myRequests' ? 'active' : ''} onClick={() => { setActiveNav('myRequests'); navigate('/my-request'); }}>My Requests</li>
-            <li className={activeNav === 'addTask' ? 'active' : ''} onClick={() => { setActiveNav('addTask'); navigate('/add-task'); }}>Add Task</li>
+            <li className={activeNav === 'feed' ? 'active' : ''} onClick={() => {setActiveNav('feed');navigate('/feed');}}>
+              <span>Feed</span>
+            </li>
+            <li className={activeNav === 'myTasks' ? 'active' : ''} onClick={() => { setActiveNav('myTasks'); navigate('/my-tasks'); }}>
+              <span>My Tasks</span>
+            </li>
+            <li className={activeNav === 'requests' ? 'active' : ''} onClick={() => {setActiveNav('requests'); navigate('/request'); }}><span>Requests</span></li>
+            <li className={activeNav === 'myRequests' ? 'active' : ''} onClick={() => {setActiveNav('myRequests'); navigate('/my-request');}}><span>My Requests</span></li>
+            <li className={activeNav === 'addTask' ? 'active' : ''} onClick={() => { setActiveNav('addTask'); navigate('/add-task'); }}>
+              <span>Add Task</span>
+            </li>
+            <li className={activeNav === 'settings' ? 'active' : ''} onClick={() => setActiveNav('settings')}><span>Settings</span></li>
           </ul>
         </nav>
-      </div>
 
+        
+      </div>
       {/* Main Content */}
       <div className="main-content1">
         <div className="header">

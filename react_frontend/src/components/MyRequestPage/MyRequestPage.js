@@ -11,6 +11,7 @@ const MyRequestPage = () => {
   const [activeNav, setActiveNav] = useState('myRequests');
   const [searchQuery, setSearchQuery] = useState('');
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [selectedTasks, setSelectedTasks] = useState([]);
 
   const navigate = useNavigate();
   const profileRef = useRef(null);
@@ -28,30 +29,100 @@ const MyRequestPage = () => {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    alert(`Searching requests for: ${searchQuery}`);
+    // Implement search functionality
   };
 
-  // Sample request data
+  // Sample request data with updated status values
   const myRequests = [
     {
-      id: 1,
-      title: 'Need a plumber urgently',
-      description: 'Looking for a plumber to fix a leaking kitchen sink today.',
+      id: 'TASK-8782',
+      title: 'You can\'t compress the program without quantifying the open-source SSD pixel!',
+      description: 'Need urgent help with system compression and pixel quantification.',
       location: 'Brooklyn, NY',
       startDate: 'Sep 18, 2025',
       endDate: '4:00 PM',
-      image: 'https://images.unsplash.com/photo-1560184897-ae75f4184934?auto=format&fit=crop&w=1470&q=80',
-      status: 'Pending'
+      status: 'pending'
     },
     {
-      id: 2,
-      title: 'Grocery pickup',
-      description: 'Need someone to pick up groceries from the store and deliver.',
+      id: 'TASK-7878',
+      title: 'Try to calculate the EXE feed, maybe it will index the multi-byte pixel!',
+      description: 'Looking for technical assistance with EXE feed calculation.',
       location: 'Queens, NY',
       startDate: 'Sep 20, 2025',
       endDate: '12:00 PM',
-      image: 'https://images.unsplash.com/photo-1586201375754-45f6c9c182d0?auto=format&fit=crop&w=1470&q=80',
-      status: 'Approved'
+      status: 'approved'
+    },
+    {
+      id: 'TASK-7839',
+      title: 'We need to bypass the neural TCP card!',
+      description: 'Urgent neural network bypass assistance required.',
+      location: 'Manhattan, NY',
+      startDate: 'Sep 22, 2025',
+      endDate: '10:00 AM',
+      status: 'rejected'
+    },
+    {
+      id: 'TASK-5562',
+      title: 'The SAS interface is down, bypass the open-source pixel so we can back up the PNG bandwidth!',
+      description: 'System interface repair and backup assistance needed.',
+      location: 'Bronx, NY',
+      startDate: 'Sep 25, 2025',
+      endDate: '2:00 PM',
+      status: 'pending'
+    },
+    {
+      id: 'TASK-8686',
+      title: 'I\'ll parse the wireless SSL protocol, that should drive the API panel!',
+      description: 'Network protocol parsing and API configuration help.',
+      location: 'Staten Island, NY',
+      startDate: 'Sep 26, 2025',
+      endDate: '3:30 PM',
+      status: 'approved'
+    },
+    {
+      id: 'TASK-1280',
+      title: 'Use the digital TLS panel, then you can transmit the haptic system!',
+      description: 'Digital panel configuration and haptic system transmission.',
+      location: 'Long Island, NY',
+      startDate: 'Sep 27, 2025',
+      endDate: '11:00 AM',
+      status: 'approved'
+    },
+    {
+      id: 'TASK-7262',
+      title: 'The UTF8 application is down, parse the neural bandwidth so we can back up the PNG firewall!',
+      description: 'Application recovery and firewall backup assistance.',
+      location: 'Brooklyn, NY',
+      startDate: 'Sep 28, 2025',
+      endDate: '1:00 PM',
+      status: 'rejected'
+    },
+    {
+      id: 'TASK-1138',
+      title: 'Generating the driver won\'t do anything, we need to quantify the 1080p SMTP bandwidth!',
+      description: 'Driver generation and SMTP bandwidth optimization.',
+      location: 'Queens, NY',
+      startDate: 'Sep 29, 2025',
+      endDate: '4:15 PM',
+      status: 'pending'
+    },
+    {
+      id: 'TASK-7184',
+      title: 'We need to program the back-end THX pixel!',
+      description: 'Back-end programming and pixel manipulation assistance.',
+      location: 'Manhattan, NY',
+      startDate: 'Sep 30, 2025',
+      endDate: '9:30 AM',
+      status: 'approved'
+    },
+    {
+      id: 'TASK-5160',
+      title: 'Calculating the bus won\'t do anything, we need to navigate the back-end JSON protocol!',
+      description: 'Bus calculation and JSON protocol navigation help.',
+      location: 'Bronx, NY',
+      startDate: 'Oct 1, 2025',
+      endDate: '2:45 PM',
+      status: 'pending'
     }
   ];
 
@@ -104,6 +175,42 @@ const MyRequestPage = () => {
     if (isCurrentMonth) setSelectedDate(new Date(currentYear, currentMonth, day));
   };
 
+  const getStatusColor = (status) => {
+    switch (status.toLowerCase()) {
+      case 'approved': return '#10B981';
+      case 'pending': return '#F59E0B';
+      case 'rejected': return '#EF4444';
+      default: return '#6B7280';
+    }
+  };
+
+  const handleTaskSelect = (taskId) => {
+    setSelectedTasks(prev => 
+      prev.includes(taskId) 
+        ? prev.filter(id => id !== taskId)
+        : [...prev, taskId]
+    );
+  };
+
+  const handleSelectAll = (e) => {
+    if (e.target.checked) {
+      setSelectedTasks(myRequests.map(req => req.id));
+    } else {
+      setSelectedTasks([]);
+    }
+  };
+
+  // Filter requests based on search
+  const filteredRequests = myRequests.filter(req => {
+    const q = searchQuery.toLowerCase();
+    return (
+      req.title.toLowerCase().includes(q) ||
+      req.description.toLowerCase().includes(q) ||
+      req.location.toLowerCase().includes(q) ||
+      req.id.toLowerCase().includes(q)
+    );
+  });
+
   return (
     <div className="request-container">
       {/* Sidebar */}
@@ -142,70 +249,103 @@ const MyRequestPage = () => {
         </div>
       </div>
 
-
       {/* Main Content */}
-      <div className="main-content33">
-        <div className="header33">
-          <form className="search-bar33" onSubmit={handleSearchSubmit}>
-            <button type="submit" className="search-icon22">🔍</button>
-            <input
-              type="text"
-              placeholder="Search requests..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </form>
-          <div className="user-profile" ref={profileRef}>
-            <div className="profile-container" onClick={() => setShowProfileMenu(!showProfileMenu)}>
-              <div className="user-avatar">
-                <img src="https://ui-avatars.com/api/?name=R&background=6c5ce7&color=fff" alt="User" />
-              </div>
-              <div className="user-info">
-                <div className="user-name">requester</div>
-                <div className="user-email">req@example.com</div>
-              </div>
+      <div className="main-content">
+        <div className="content-header">
+          <div className="header-left">
+            <h1>My Requests</h1>
+            <p className="subtitle">Helps to track the request you have sent.</p>
+          </div>
+          <div className="header-right">
+            <div className="search-container">
+              <input
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                className="search-input"
+              />
+              <span className="search-icon">🔍</span>
             </div>
-            {showProfileMenu && (
-              <div className="profile-dropdown">
-                <ul>
-                  <li>My Profile</li>
-                  <li>Account Settings</li>
-                  <li>Help Center</li>
-                  <li onClick={() => alert('Logging out...')}>Logout</li>
-                </ul>
+            <div className="user-profile" ref={profileRef}>
+              <div className="profile-container" onClick={() => setShowProfileMenu(!showProfileMenu)}>
+                <div className="user-avatar">
+                  <img src="https://ui-avatars.com/api/?name=Sharon&background=6c5ce7&color=fff" alt="Sharon" />
+                </div>
+                <div className="user-info">
+                  <div className="user-name">sharon</div>
+                  <div className="user-email">req@example.com</div>
+                </div>
+                <svg className="dropdown-arrow" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <polyline points="6,9 12,15 18,9"></polyline>
+                </svg>
               </div>
-            )}
+              {showProfileMenu && (
+                <div className="profile-dropdown">
+                  <ul>
+                    <li><span>👤</span>My Profile</li>
+                    <li><span>⚙️</span>Account Settings</li>
+                    <li><span>❓</span>Help Center</li>
+                    <li onClick={() => alert('Logging out...')}><span>🚪</span>Logout</li>
+                  </ul>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Add Request Button */}
-        <div className="add-request-button-container">
-          <button className="add-task-button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M12 5v14M5 12h14"></path>
-            </svg>
-            Add New Request
-          </button>
-        </div>
-
-        {/* Request Grid */}
-        <div className="request-grid">
-          {myRequests.map(req => (
-            <div className="request-card" key={req.id}>
-              <div className="request-image">
-                <img src={req.image} alt={req.title} />
-              </div>
-              <h3 className="request-title">{req.title}</h3>
-              <p className="request-description">{req.description}</p>
-              <div className="request-details">
-                <p className="request-location">📍 {req.location}</p>
-                <p className="request-dates">📅 {req.startDate} • {req.endDate}</p>
-              </div>
-              <div className="request-status-container">
-                <Badge variant={req.status.toLowerCase()}>{req.status}</Badge>
-              </div>
+        <div className="requests-table">
+          <div className="table-header">
+            <div className="header-cell checkbox-cell">
+              <input 
+                type="checkbox" 
+                onChange={handleSelectAll}
+                checked={selectedTasks.length === myRequests.length}
+              />
             </div>
-          ))}
+            <div className="header-cell">Tasks</div>
+            <div className="header-cell title-cell">Title</div>
+            <div className="header-cell status-cell">Status</div>
+          </div>
+
+          <div className="table-body">
+            {filteredRequests.length === 0 && (
+              <div className="empty-state">
+                <p>No requests found</p>
+              </div>
+            )}
+            
+            {filteredRequests.map((req) => (
+              <div className="table-row" key={req.id}>
+                <div className="cell checkbox-cell">
+                  <input 
+                    type="checkbox" 
+                    checked={selectedTasks.includes(req.id)}
+                    onChange={() => handleTaskSelect(req.id)}
+                  />
+                </div>
+                <div className="cell task-id-cell">
+                  <span className="task-id">{req.id}</span>
+                </div>
+                <div className="cell title-cell">
+                  <div className="task-title">
+                    {req.title}
+                  </div>
+                </div>
+                <div className="cell status-cell">
+                  <span 
+                    className="status-badge" 
+                    style={{ 
+                      backgroundColor: getStatusColor(req.status),
+                      color: 'white'
+                    }}
+                  >
+                    ⚪ {req.status.charAt(0).toUpperCase() + req.status.slice(1)}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

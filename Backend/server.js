@@ -15,6 +15,7 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/feed", require("./routes/feed"));  
 app.use("/api/myrequest", require("./routes/myrequest"));
 app.use("/api/requests", require("./routes/request"));
+app.use("/api/notifications", require("./routes/notifications"));
 app.get("/", (req, res) => res.send("HireHelper API running"));
 
 const PORT = process.env.PORT || 5000;

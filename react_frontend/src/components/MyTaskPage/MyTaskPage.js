@@ -248,6 +248,11 @@ const MyTaskPage = () => {
       setSelectedDate(new Date(currentYear, currentMonth, day));
     }
   };
+const [userEmail, setUserEmail] = useState('');
+useEffect(() => {
+  const email = localStorage.getItem('email');
+  if (email) setUserEmail(email);
+}, []);
 
   // Handle refresh tasks
   const handleRefreshTasks = async () => {
@@ -368,16 +373,17 @@ const MyTaskPage = () => {
                 <img src="https://ui-avatars.com/api/?name=S&background=6c5ce7&color=fff" alt="User" />
               </div>
               <div className="user-info">
-                <div className="user-name">shadcn</div>
-                <div className="user-email">m@example.com</div>
+                <div className="user-name">{userEmail.split('@')[0]}</div>
+<div className="user-email">{userEmail}</div>
+
               </div>
             </div>
             {showProfileMenu && (
               <div className="profile-dropdown">
                 <ul>
-                  <li>My Profile</li>
+                 
                   <li>Account Settings</li>
-                  <li>Help Center</li>
+                 
                   <li onClick={() => alert('Logging out...')}>Logout</li>
                 </ul>
               </div>

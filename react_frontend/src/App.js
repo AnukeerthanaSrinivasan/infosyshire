@@ -13,6 +13,7 @@ import MyTaskPage from './components/MyTaskPage/MyTaskPage';
 import AddTaskPage from './components/AddTaskPage/AddTaskPage';
 import RequestPage from './components/RequestPage/RequestPage';
 import MyRequestPage from './components/MyRequestPage/MyRequestPage';
+import SettingsPage from './components/SettingsPage/SettingsPage';
 function App() {
   return (
     <Router>
@@ -28,6 +29,7 @@ function App() {
           <Route path="/add-task" element={<AddTaskPage />} />
           <Route path="/request" element={<RequestPage />} />
           <Route path="/my-request" element={<MyRequestPage />} />
+          <Route path="/settings" element={<SettingsPage/>} />
         </Routes>
       </div>
     </Router>

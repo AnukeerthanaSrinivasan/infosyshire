@@ -113,6 +113,11 @@ const handleRequest = async (taskId) => {
   const handlePrevMonth = () => setCurrentMonth(prev => prev === 0 ? (setCurrentYear(y => y - 1), 11) : prev - 1);
   const handleNextMonth = () => setCurrentMonth(prev => prev === 11 ? (setCurrentYear(y => y + 1), 0) : prev + 1);
   const handleDateSelect = (day, isCurrentMonth) => { if (isCurrentMonth) setSelectedDate(new Date(currentYear, currentMonth, day)); };
+  const [userEmail, setUserEmail] = useState('');
+useEffect(() => {
+  const email = localStorage.getItem('email');
+  if (email) setUserEmail(email);
+}, []);
 
   // Format date and time
   const formatDate = (dateString) => {
@@ -159,7 +164,7 @@ const handleRequest = async (taskId) => {
             <li className={activeNav === 'addTask' ? 'active' : ''} onClick={() => { setActiveNav('addTask'); navigate('/add-task'); }}>
               <span>Add Task</span>
             </li>
-            <li className={activeNav === 'settings' ? 'active' : ''} onClick={() => setActiveNav('settings')}><span>Settings</span></li>
+            <li className={activeNav === 'settings' ? 'active' : ''} onClick={() => {setActiveNav('settings'); navigate('/settings')}}><span>Settings</span></li>
           </ul>
         </nav>
 
@@ -196,16 +201,17 @@ const handleRequest = async (taskId) => {
             <div className="profile-container" onClick={() => setShowProfileMenu(!showProfileMenu)}>
               <div className="user-avatar"><img src="https://ui-avatars.com/api/?name=S&background=6c5ce7&color=fff" alt="User" /></div>
               <div className="user-info">
-                <div className="user-name">shadcn</div>
-                <div className="user-email">m@example.com</div>
+                <div className="user-name">{userEmail.split('@')[0]}</div>
+                <div className="user-email">{userEmail}</div>
+
               </div>
             </div>
             {showProfileMenu && (
               <div className="profile-dropdown">
                 <ul>
-                  <li>My Profile</li>
+                  
                   <li>Account Settings</li>
-                  <li>Help Center</li>
+                  
                   <li onClick={() => {
                     localStorage.removeItem('token');
                     navigate('/login');

@@ -37,6 +37,7 @@ const LoginPage = () => {
       if (response.ok) {
         alert("Login successful!");
         localStorage.setItem("token", data.token); // store JWT token
+        localStorage.setItem("email", formData.email);
         navigate("/feed"); // redirect after login
       } else {
         alert(data.error || "Invalid credentials");

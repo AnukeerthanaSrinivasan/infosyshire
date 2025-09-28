@@ -9,7 +9,8 @@ const SignupPage = () => {
     firstName: '',
     lastName: '',
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   });
 
   const handleChange = (e) => {
@@ -22,7 +23,11 @@ const SignupPage = () => {
 
   const handleSubmit = async (e) => {
   e.preventDefault();
-
+   if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+ 
   try {
     const response = await fetch("http://localhost:5000/api/auth/signup", {
       method: "POST",
@@ -99,6 +104,18 @@ const SignupPage = () => {
                 id="password" 
                 required 
                 value={formData.password}
+                onChange={handleChange}
+              />
+            </div>
+            
+
+            <div className="form-group">
+              <label htmlFor="confirmPassword">Confirm Password</label>
+              <input 
+                type="password" 
+                id="confirmPassword" 
+                required 
+                value={formData.confirmPassword}
                 onChange={handleChange}
               />
             </div>

@@ -199,6 +199,11 @@ const MyRequestPage = () => {
       setSelectedTasks([]);
     }
   };
+const [userEmail, setUserEmail] = useState('');
+useEffect(() => {
+  const email = localStorage.getItem('email');
+  if (email) setUserEmail(email);
+}, []);
 
   // Filter requests based on search
   const filteredRequests = myRequests.filter(req => {
@@ -273,8 +278,9 @@ const MyRequestPage = () => {
                   <img src="https://ui-avatars.com/api/?name=Sharon&background=6c5ce7&color=fff" alt="Sharon" />
                 </div>
                 <div className="user-info">
-                  <div className="user-name">sharon</div>
-                  <div className="user-email">req@example.com</div>
+                  <div className="user-name">{userEmail.split('@')[0]}</div>
+<div className="user-email">{userEmail}</div>
+
                 </div>
                 <svg className="dropdown-arrow" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <polyline points="6,9 12,15 18,9"></polyline>
@@ -283,9 +289,8 @@ const MyRequestPage = () => {
               {showProfileMenu && (
                 <div className="profile-dropdown">
                   <ul>
-                    <li><span>👤</span>My Profile</li>
                     <li><span>⚙️</span>Account Settings</li>
-                    <li><span>❓</span>Help Center</li>
+                   
                     <li onClick={() => alert('Logging out...')}><span>🚪</span>Logout</li>
                   </ul>
                 </div>
